@@ -24,6 +24,8 @@ def main():
 
 		SaveData(fname,lname,userNums,pbNum)
 
+		#Based on the sample output, I have created seperate list for each number position
+		#This can be ranndomised further by creating 1 list for all 5 positions
 		selected_numbers_1 = []
 		selected_numbers_2 = []
 		selected_numbers_3 = []
@@ -58,13 +60,17 @@ def CreateLottoNumber (selected_list):
 	distinct_list_count = {}
 	for l in distinct_list:
 		distinct_list_count[str(l)] = selected_list.count(l)
+
+	#the list is sorted by number of occurrences descending and the topmost count is chosen
 	max_number = int("".join(str(y) for x,y in sorted(distinct_list_count.items(), key=lambda x: (-x[1], x[0]))[:1]))
 
+	#selecting all the numbers that have the topmost occurrence
 	max_selected_list=[]
 	for key, value in distinct_list_count.items():
 	    if value == max_number:
 	        max_selected_list.append(key)
 
+	#From the above list a randon number is chosen
 	import random
 	return random.choice(max_selected_list)
 
