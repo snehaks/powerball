@@ -1,26 +1,53 @@
+import sys
+
+def Validate(x, userNums):
+	if (x not in userNums) and (1 <= x <= 69) and type(x) == type(1):
+		return True
+	else:
+		return False
+
 def main():
 	fname = input("Enter your first name: ")
 	lname = input("Enter your last name: ")
 	userNums = []
 	try:
+		error= 'Error: Input entered must be a number from 1 thru 69 and not a duplicate'
 		x=int( input("select 1st # (1 thru 69): "))
 		if (1 <= x <= 69) and type(x) == type(1):
 			userNums.append(x)
+		else:
+			print (error)
+			sys.exit(1)
 		x=int(input("select 2nd # (1 thru 69 excluding " + str(userNums[0])+ "): "))
-		if (x not in userNums) and (1 <= x <= 69) and type(x) == type(1):
+		if Validate(x,userNums):
 			userNums.append(x)
+		else:
+			print (error)
+			sys.exit(1)
 		x=int( input("select 3rd # (1 thru 69 excluding " +  str(userNums[0]) +" and "+  str(userNums[1])+ "): "))
-		if (x not in userNums) and (1 <= x <= 69) and type(x) == type(1):
+		if Validate(x,userNums):
 			userNums.append(x)
+		else:
+			print (error)
+			sys.exit(1)
 		x=int( input("select 4th # (1 thru 69 excluding " +  str(userNums[0]) + ", " +  str(userNums[1]) +", and "+  str(userNums[2])+ "): "))
-		if (x not in userNums) and (1 <= x <= 69) and type(x) == type(1):
+		if Validate(x,userNums):
 			userNums.append(x)
+		else:
+			print (error)
+			sys.exit(1)
 		x=int(input("select 5th # (1 thru 69 excluding " +  str(userNums[0]) + ", " +  str(userNums[1]) +", " +  str(userNums[2]) +", and "+  str(userNums[3])+ "): "))
-		if (x not in userNums) and (1 <= x <= 69) and type(x) == type(1):
+		if Validate(x,userNums):
 			userNums.append(x)
+		else:
+			print (error)
+			sys.exit(1)
 		x = int( input("select Power Ball # (1 thru 26): "))
 		if  (1 <= x <= 26) and type(x) == type(1):
 			pbNum= x
+		else:
+			print ('Error: Input entered must be a number from 1 thru 26')
+			sys.exit(1)
 
 		SaveData(fname,lname,userNums,pbNum)
 
@@ -33,6 +60,13 @@ def main():
 		selected_numbers_5 = []
 		powerball_numbers=[]
 
+		from prettytable import PrettyTable
+		#from prettytable import PLAIN_COLUMN
+
+		pt = PrettyTable()
+		pt.border= False
+		pt.header= False
+
 		for row in ReadData():
 			selected_numbers_1.append(row[3])
 			selected_numbers_2.append(row[4])
@@ -40,7 +74,10 @@ def main():
 			selected_numbers_4.append(row[6])
 			selected_numbers_5.append(row[7])
 			powerball_numbers.append(row[8])
-			print(str(row[1]) + " " + str(row[2]) + " " + str(row[3]) + " " + str(row[4]) + " " + str(row[5]) + " " + str(row[6]) + " " + str(row[7]) + " Powerball: " + str(row[8]))
+			#print(str(row[1]) + " " + str(row[2]) + " " + str(row[3]) + " " + str(row[4]) + " " + str(row[5]) + " " + str(row[6]) + " " + str(row[7]) + " Powerball: " + str(row[8]))
+			pt.add_row([str(row[1]) , str(row[2]) , str(row[3]) ,str(row[4]) , str(row[5]) , str(row[6]) , str(row[7]) , " Powerball: " + str(row[8])])
+
+		print(pt)	
 
 		print ("Powerball winning number:")
 		ticket_numbers = []
