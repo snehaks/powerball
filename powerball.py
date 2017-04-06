@@ -52,7 +52,7 @@ def main():
 		SaveData(fname,lname,userNums,pbNum)
 
 		#Based on the sample output, I have created seperate list for each number position
-		#This can be ranndomised further by creating 1 list for all 5 positions
+		#This can be randomised further by creating 1 list for all 5 positions
 		selected_numbers_1 = []
 		selected_numbers_2 = []
 		selected_numbers_3 = []
